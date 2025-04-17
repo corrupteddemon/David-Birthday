@@ -1,0 +1,213 @@
+/* ===== Base Reset & Font ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    color: #333;
+    text-align: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  
+  /* ===== Header ===== */
+  header {
+    background: linear-gradient(90deg, #ff9aa2, #ffb6b9);
+    padding: 30px;
+    border-radius: 25px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: white;
+    font-size: 3.2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #ff7b8a;
+  }
+  
+  h2 {
+    color: #fff8f8;
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+  
+  /* ===== Message Section ===== */
+  .message {
+    background: white;
+    padding: 35px;
+    border-radius: 25px;
+    max-width: 720px;
+    margin: 0 auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+  
+  .gallery-button {
+    margin-top: 30px;
+  }
+  
+  /* ===== Button Styles ===== */
+  button {
+    background: #ffb347;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(255, 179, 71, 0.4);
+  }
+  
+  button:hover {
+    background: #ff9800;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 152, 0, 0.4);
+  }
+  
+  /* ===== Image Gallery Slider ===== */
+  .slider {
+    margin-top: 50px;
+    display: none;
+    position: relative;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .slider img {
+    width: 100%;
+    border-radius: 25px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    user-select: none;
+  }
+  
+  .slider img:hover {
+    transform: rotate(-1deg) scale(1.02);
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  
+  /* ===== Prev / Next Buttons ===== */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .nav-buttons button {
+    flex: 1;
+    margin: 0 6px;
+    background: #ff9999;
+    box-shadow: 0 6px 15px rgba(255, 153, 153, 0.3);
+  }
+  
+  .nav-buttons button:hover {
+    background: #ff6f61;
+  }
+  
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 60px;
+    color: #999;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+  
+  /* ===== Splash screen (cake + confetti) ===== */
+  #splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#fff, #ffd6e0);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 1s ease;
+  }
+  
+  #cake-img {
+    width: 180px;
+    height: auto;
+    animation: pop-in 1s ease-out;
+  }
+  
+  .penguin-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .penguin-caption {
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  
+  #confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  @keyframes pop-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  
+  /* ===== Mobile Responsive ===== */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+  
+    .message {
+      font-size: 1rem;
+      padding: 25px;
+    }
+  
+    .nav-buttons {
+      flex-direction: column;
+    }
+  
+    .nav-buttons button {
+      margin: 8px 0;
+      width: 100%;
+    }
+  }
+  

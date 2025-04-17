@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday David!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="start-button" onclick="beginSite()" style="position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; cursor: pointer;">
+    Tap to Start 🎵
+  </div>
+  
+  <!-- 🎂 Splash Screen -->
+  <div id="splash-screen">
+    <div class="penguin-wrapper">
+      <div class="penguin-caption">this is you when I imagine you →</div>
+      <img src="penguine.jpg" alt="Birthday Cake" id="cake-img">
+    </div>
+    <canvas id="confetti"></canvas>
+    <audio id="bg-music" src="bundle-of-joy.mp3"></audio>
+  </div>
+  
+
+  <!-- 🎁 Main Content -->
+  <div id="main-content" style="display: none;">
+
+    <header>
+      <h1>🎉 Happy Birthday David! 🎉</h1>
+      <h2>From Thinh</h2>
+    </header>
+
+    <div class="message">
+      <p>Hey David,<br><br>
+        Just wanted to say happy birthday and thank you for being my coolest and non-judgemental friend(or maybe you secretly judge).
+      </p>
+
+      <div class="gallery-button">
+        <button onclick="openGallery()">📸 Open Gallery</button>
+      </div>
+    </div>
+
+    <div class="slider" id="slider">
+      <img id="gallery-img" src="picture1.jpg" alt="Birthday Gallery" />
+      <div class="nav-buttons">
+        <button onclick="prevImage()">← Back</button>
+        <button onclick="nextImage()">Next →</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Thinh Nguyen | Made with love and last-minute panic 😅</p>
+    </footer>
+  </div>
+
+  <!-- 💻 JavaScript Section -->
+  <script>
+    const images = ["picture1.jpg", "picture2.jpg", "picture3.jpg", "picture4.jpg"];
+    let currentIndex = 0;
+  
+    const slider = document.getElementById("slider");
+    const img = document.getElementById("gallery-img");
+  
+    function openGallery() {
+      slider.style.display = "block";
+      img.src = images[currentIndex];
+    }
+  
+    function nextImage() {
+      img.classList.add("fade-out");
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        img.src = images[currentIndex];
+        img.classList.remove("fade-out");
+      }, 300);
+    }
+  
+    function prevImage() {
+      img.classList.add("fade-out");
+      setTimeout(() => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        img.src = images[currentIndex];
+        img.classList.remove("fade-out");
+      }, 300);
+    }
+  
+    // Mobile swipe
+    let startX = 0;
+    img.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+  
+    img.addEventListener("touchend", (e) => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) nextImage();
+      else if (endX - startX > 50) prevImage();
+    });
+  
+    // 🌟 Tap-to-start trigger
+    function beginSite() {
+      document.getElementById("start-button").style.display = "none";
+      const splash = document.getElementById('splash-screen');
+      const main = document.getElementById('main-content');
+      const music = document.getElementById('bg-music');
+  
+      splash.style.display = "flex";
+      music.play();
+      startConfetti();
+  
+      setTimeout(() => {
+        splash.style.opacity = 0;
+        setTimeout(() => {
+          splash.style.display = 'none';
+          main.style.display = 'block';
+        }, 1000);
+      }, 3500);
+    }
+  
+    // 🎉 Confetti
+    function startConfetti() {
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let confetti = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 40 + 10,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        tilt: Math.random() * 10 - 5,
+        tiltAngle: 0,
+      }));
+  
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach(c => {
+          ctx.beginPath();
+          ctx.lineWidth = c.r;
+          ctx.strokeStyle = c.color;
+          ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+          ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r);
+          ctx.stroke();
+        });
+        update();
+        requestAnimationFrame(draw);
+      }
+  
+      function update() {
+        confetti.forEach(c => {
+          c.y += Math.cos(c.d) + 1 + c.r / 2;
+          c.x += Math.sin(c.d);
+          c.tiltAngle += 0.1;
+          c.tilt = Math.sin(c.tiltAngle) * 15;
+          if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+          }
+        });
+      }
+  
+      draw();
+    }
+  </script>
+  
+
+</body>
+</html>
